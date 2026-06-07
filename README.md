@@ -1,33 +1,60 @@
-# Reinforcement Learning Final Project - Pablo Salar Carrera
+# DQN Agent for ConnectX
+
+A Deep Q-Network (DQN) agent trained to play ConnectX via PyTorch. This project systematically experiments across hidden layer depth and size to quantify the trade-off between network complexity and training efficiency.
+
+**Stack:** Python, PyTorch, Reinforcement Learning, DQN
+
+---
 
 ## Project Overview
-This project explores the performance of Deep Q-Networks (DQN) agents trained with varying numbers of hidden layers and different hidden layer sizes. The aim was to assess how network complexity impacts training time and the agent’s learning capabilities.
+
+ConnectX is a generalized version of Connect Four where the board dimensions and winning condition (number of consecutive pieces) are configurable. This project trains DQN agents with varying architectures and measures how network depth and width affect both training wall-time and in-game learning performance.
+
+---
 
 ## Approach
-We experimented with different configurations of hidden layers, varying both the number of layers and the size of each layer. The DQN agent was trained on a chosen environment, and the results were evaluated based on learning performance and the time taken to train the agent.
+
+A DQN agent was trained across multiple architectural configurations, varying:
+
+- **Number of hidden layers:** shallow (1–2 layers) vs. deep (3–4 layers)
+- **Hidden layer size:** smaller (64–128 units) vs. larger (256–512 units)
+
+Each configuration was trained for a fixed number of episodes. Training time and learning behavior were recorded and compared across all configurations.
+
+---
 
 ## Key Findings
 
-1. **Training Time**: As the number of hidden layers and the size of the layers increased, the training time also increased significantly. More complex networks took longer to process and update during training.
-  
-2. **Learning Performance**: Despite the longer training times, the agent’s learning performance did improve marginally with more hidden layers and larger layer sizes. The agent learned slightly better with deeper architectures, but the improvement did not justify the increased computational cost.
+**Training Time:** Training time scaled significantly with both layer count and layer size. Deeper and wider networks required substantially more computation per update step.
 
-3. **Trade-off**: The trade-off between training speed and performance was apparent. The increased learning capability with more hidden layers was not enough to offset the slower training times. In some cases, simpler network architectures performed adequately and much faster than the deeper counterparts.
+**Learning Performance:** Deeper architectures showed marginal improvements in learning quality — the agent demonstrated slightly more stable policy convergence with additional layers, but the gains were modest relative to the added cost.
 
-## Conclusion
-- Increasing the complexity of the DQN agent (in terms of hidden layers and their sizes) leads to marginal improvements in learning performance.
-- However, this improvement is not substantial enough to justify the increased training time.
-- Future work could explore optimizing the number of layers and their sizes to find a more efficient trade-off between performance and computation.
+**Trade-off:** Simpler architectures (1–2 hidden layers, moderate size) achieved adequate performance at a fraction of the training cost. The performance gains from additional depth did not justify the computational overhead in most configurations.
 
-## Folder Structure
+**Conclusion:** For environments of this complexity, lighter network architectures are preferable. Future work could explore experience replay tuning, epsilon-decay schedules, and target network update frequencies to further improve sample efficiency.
 
-The project is organized as follows:
+---
 
-- `/notebooks/`: Contains the Jupyter Notebook used for analysis.
-  - `DS669FinalProject_PabloSalar.ipynb` - Jupyter notebook with code, visualizations, and explanations.
+## Repository Structure
 
-- `/src/`: Contains the Python script used in the project.
-  - `DS669FinalProject_PabloSalar.py` - Standalone Python script for running the analysis.
+```
+DQN-ConnectX-Agent/
+├── notebooks/
+│   └── DS669FinalProject_PabloSalar.ipynb   # Full experiment notebook with visualizations
+├── src/
+│   └── DS669FinalProject_PabloSalar.py      # Standalone Python script
+├── reports/
+│   └── DS669FinalProject_PabloSalar.html    # Complete project report
+└── README.md
+```
 
-- `/reports/`: Contains the final project documentation and results.
-  - `DS669FinalProject_PabloSalar.html` - The complete project report in HTML format.
+---
+
+## Technologies
+
+| Library | Purpose |
+|---|---|
+| PyTorch | DQN model definition and training loop |
+| NumPy | Array operations and reward processing |
+| Matplotlib | Training curve and performance visualizations |
+| Jupyter | Interactive experimentation and reporting |
